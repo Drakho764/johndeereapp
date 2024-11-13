@@ -1,5 +1,8 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:johndeereapp/screens/fav_movie.dart';
+import 'package:johndeereapp/screens/profile/widgets/custom_bottom_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:johndeereapp/database/agendadb.dart';
 import 'package:johndeereapp/models/actor_model.dart';
@@ -37,6 +40,7 @@ class __DetailMovieFavScreenState extends State<DetailMovieScreenFav> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Screen'),
+        automaticallyImplyLeading: false,
       ),
       body: Hero(
         tag: widget.model.id!,
@@ -85,9 +89,9 @@ class __DetailMovieFavScreenState extends State<DetailMovieScreenFav> {
                                     var msj = (value > 0)
                                         ? 'Eliminada de Favoritos!'
                                         : 'Ocurrió un error';
-                                    var snackbar = SnackBar(content: Text(msj));
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackbar);
+                                    var snackbar = AnimatedSnackBar.material(msj,type: AnimatedSnackBarType.error,).show(context);
+                                    /*ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackbar);*/
                                   });
                                 })
                               },
@@ -225,6 +229,20 @@ class __DetailMovieFavScreenState extends State<DetailMovieScreenFav> {
           ),
         ),
       ),
+      bottomNavigationBar: CustomBottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(255, 226, 37, 37),
+        onPressed: () {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: ((context) => const FavMovie())));
+        },
+        child: Icon(
+          Icons.arrow_back_sharp,
+          color: Colors.white,
+          size: 34,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

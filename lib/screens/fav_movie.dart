@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart'; //1
+import 'package:johndeereapp/screens/popular_screen.dart';
+import 'package:johndeereapp/screens/profile/widgets/custom_bottom_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:johndeereapp/database/agendadb.dart';
 import 'package:johndeereapp/models/popular_model.dart';
@@ -16,7 +18,6 @@ class FavMovie extends StatefulWidget {
 class _FavMovie extends State<FavMovie> {
   AgendaDB? agendaDB;
 
-
   @override
   void initState() {
     super.initState();
@@ -28,64 +29,79 @@ class _FavMovie extends State<FavMovie> {
     TestProvider flag = Provider.of<TestProvider>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Peliculas Favoritas"),
-        ),
-        body: FutureBuilder(
-            future: agendaDB!.GETALLPOPULAR(),
-            builder: (context, AsyncSnapshot<List<PopularModel>?> snapshot) {
-              if (snapshot.data != null) {
-                if (snapshot.data!.isNotEmpty) {
-                  return GridView.builder(
-                    padding: const EdgeInsets.all(10),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: .8,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      PopularModel model = snapshot.data![index];
-                      if (snapshot.hasData) {
-                        return InkWell(
+      appBar: AppBar(
+        title: const Text("Peliculas Favoritas"),
+        automaticallyImplyLeading: false,
+      ),
+      body: FutureBuilder(
+          future: agendaDB!.GETALLPOPULAR(),
+          builder: (context, AsyncSnapshot<List<PopularModel>?> snapshot) {
+            if (snapshot.data != null) {
+              if (snapshot.data!.isNotEmpty) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: .8,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    PopularModel model = snapshot.data![index];
+                    if (snapshot.hasData) {
+                      return InkWell(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         DetailMovieScreenFav(model: model)));
                           },
-                          child:Hero(tag: model, child: ItemPopularMovie(
-                              popularModel: snapshot.data![index])) 
-                          
+                          child: Hero(
+                              tag: model,
+                              child: ItemPopularMovie(
+                                  popularModel: snapshot.data![index]))
+
                           /*ItemPopularMovie(
                               popularModel: snapshot.data![index]),*/
-                        );
-                      } else if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('Algo salio mal :()'),
-                        );
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                    itemCount: snapshot.data != null
-                        ? snapshot.data!.length
-                        : 0, //snapshot.data!.length,
-                  );
-                } else {
-                  return const Center(
-                    child: Text(
-                      'No te gustan las pelis?',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                  );
-                }
+                          );
+                    } else if (snapshot.hasError) {
+                      return const Center(
+                        child: Text('Algo salio mal :()'),
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                  itemCount: snapshot.data != null
+                      ? snapshot.data!.length
+                      : 0, //snapshot.data!.length,
+                );
+              } else {
+                return const Center(
+                  child: Text(
+                    'No te gustan las pelis?',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                );
               }
-              return Container();
-
-            }));
+            }
+            return Container();
+          }),
+      bottomNavigationBar: CustomBottomBar(),
+      floatingActionButton: FloatingActionButton(
+        elevation: 12,
+        backgroundColor: Color.fromARGB(255, 226, 37, 37),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_sharp,
+          color: Colors.white,
+          size: 34,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }

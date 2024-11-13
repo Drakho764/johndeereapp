@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:johndeereapp/home.dart';
+import 'package:johndeereapp/screens/popular_screen.dart';
 import 'package:johndeereapp/screens/preferencias.dart';
 import 'package:johndeereapp/screens/profile/profile_screen.dart';
 
@@ -47,9 +48,13 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               setState(() {
                 _currentIndex = 1;
               });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const PopularScreen())));
             },
             icon: Icon(
-              Icons.notifications,
+              Icons.movie,
               size: _currentIndex == 1 ? 30 : 25,
               color: _currentIndex == 1 ? Color.fromARGB(255, 54, 124, 43) : Colors.grey,
             ),
