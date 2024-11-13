@@ -73,7 +73,7 @@ class _HomeState extends State<Home>  with SingleTickerProviderStateMixin{
       child: Scaffold(
         //backgroundColor: bgColor,
         //drawer: createDrawer(),
-        appBar: AppBar(
+        /*appBar: AppBar(
           iconTheme: IconThemeData(
             color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
                 ? Colors.black
@@ -81,7 +81,7 @@ class _HomeState extends State<Home>  with SingleTickerProviderStateMixin{
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-        ),
+        ),*/
 
         /* bottomNavigationBar: Container(
           height: 60,
@@ -118,6 +118,7 @@ class _HomeState extends State<Home>  with SingleTickerProviderStateMixin{
         onPressed: () {},
         child: Icon(
           Icons.android,
+          color: Colors.white,
           size: 34,
         ),
       ),

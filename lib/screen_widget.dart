@@ -13,17 +13,17 @@ class ScreenWidget extends StatelessWidget{
         //Lottie.asset("assets\animation\bg-1.json"),
         Expanded(flex: 2,
         child: Container(
-          padding: const EdgeInsets.all(100),
+          padding: const EdgeInsets.only(left : 50,top :100, right: 50),
           decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 248, 239, 239),
+            //color: Color.fromARGB(255, 248, 239, 239),
             borderRadius: BorderRadius.vertical( bottom: Radius.circular(80)),
           ),
           child:
-          Image.asset('assets/$index.png', width: 230),
+          Image.asset('assets/$index.png', width:300),
           
           )),
         Expanded(child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(left : 16, right: 16),
           // ignore: sort_child_properties_last
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,9 +31,10 @@ class ScreenWidget extends StatelessWidget{
 
               Text(
                 titles[index],
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 30,
-                  color: Colors.black87,
+                  //color: Colors.black87,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -42,15 +43,17 @@ class ScreenWidget extends StatelessWidget{
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                 fontSize: 20,
-                color: Colors.black54,
+               // color: Colors.black54,
                 
               ),
+
             )
           ]),
-          color: Colors.white,
+          //color: Colors.white,
           )),
-        Expanded(child: Container(
-          color: Colors.white,
+        Expanded(
+          child: Container(
+         // color: Colors.white,
           )),
       ],
 

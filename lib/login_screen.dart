@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:johndeereapp/consts.dart';
 import 'package:johndeereapp/home.dart';
+import 'package:johndeereapp/onboardig.dart';
 import 'package:johndeereapp/services/local_storage.dart';
 import 'package:johndeereapp/signup_screen.dart';
 
@@ -49,12 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text("Login", style: TextStyle(
+              const Text("Inicia Sesión", style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 32,
-                color: Colors.white
               ),),
               const SizedBox(height: 20),
               Align(
@@ -134,13 +134,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         LocalStorage.prefs.setString('user', ctrlUser.text);
                         LocalStorage.prefs.setString('email', ctrlUser.text);
                         LocalStorage.prefs.setString('psw', ctrlUser.text);
-                         Navigator.push(context, MaterialPageRoute(builder: ((context)=>  Home())));
+                         Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context)=> Home())));
                         print("Okey preferenas");
                       }else{
                         
                       LocalStorage.prefs.remove('user');
                       LocalStorage.prefs.remove('psw');
-                      Navigator.push(context, MaterialPageRoute(builder: ((context)=>  Home())));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context)=>  Onboarding())));
                       print('reseteadas');
                       }
                       

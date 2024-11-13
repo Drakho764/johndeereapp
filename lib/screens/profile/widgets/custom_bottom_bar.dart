@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:johndeereapp/home.dart';
+import 'package:johndeereapp/screens/preferencias.dart';
 import 'package:johndeereapp/screens/profile/profile_screen.dart';
 
 class CustomBottomBar extends StatefulWidget {
@@ -30,7 +31,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               setState(() {
                 _currentIndex = 0;
               });
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: ((context) =>  Home())));
@@ -48,7 +49,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               });
             },
             icon: Icon(
-              Icons.local_offer,
+              Icons.notifications,
               size: _currentIndex == 1 ? 30 : 25,
               color: _currentIndex == 1 ? Color.fromARGB(255, 54, 124, 43) : Colors.grey,
             ),
@@ -58,9 +59,13 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               setState(() {
                 _currentIndex = 2;
               });
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) =>  Preferencias())));
             },
             icon: Icon(
-              Icons.notifications,
+              Icons.room_preferences,
               size: _currentIndex == 2 ? 30 : 25,
               color: _currentIndex == 2 ? Color.fromARGB(255, 54, 124, 43) : Colors.grey,
             ),
@@ -70,7 +75,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               setState(() {
                 _currentIndex = 3;
               });
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: ((context) => const ProfileScreen())));

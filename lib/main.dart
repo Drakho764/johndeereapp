@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:johndeereapp/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:johndeereapp/onboardig.dart';
 import 'package:johndeereapp/provider/test_provider.dart';
@@ -38,10 +39,12 @@ class MyApp extends StatelessWidget {
             theme: theme,
             darkTheme: darkTheme,
             initialRoute:
-                initScreen == 0 || initScreen == 1 ? 'onboard' : 'home',
+                //initScreen == 0 || initScreen == 1 ? 'onboard' : 'home',
+                'login',
             routes: {
               'onboard': (context) => const Onboarding(),
-              'home': (context) => const SplashView()
+              'home': (context) => const SplashView(),
+              'login': (context) => const LoginScreen()
             },
           );
         });

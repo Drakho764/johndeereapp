@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:johndeereapp/consts.dart';
+import 'package:johndeereapp/login_screen.dart';
 import 'package:johndeereapp/screens/profile/edit_profile.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -106,6 +107,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 50,
                     ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 189, 61, 45),
+                      ),
+                      onPressed:() {
+                        Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          LoginScreen())));
+                      },
+                      child: Text('Cerrar Sesión',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -129,6 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
         child: Icon(
           Icons.edit,
+          color: Colors.white,
           size: 34,
         ),
       ),
