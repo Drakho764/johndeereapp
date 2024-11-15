@@ -83,17 +83,21 @@ class __DetailMovieFavScreenState extends State<DetailMovieScreenFav> {
                           onPressed: () => {
                                 setState(() {
                                   int? idd = widget.model.id;
-                                  agendaDB!
-                                      .DELETEMOVIE('tblPopular', idd!)
-                                      .then((value) {
-                                    var msj = (value > 0)
-                                        ? 'Eliminada de Favoritos!'
-                                        : 'Ocurrió un error';
-                                    var snackbar = AnimatedSnackBar.material(msj,type: AnimatedSnackBarType.error,).show(context);
-                                    /*ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackbar);*/
-                                  });
-                                })
+                                  if (idd! == true) {
+                                  } else {
+                                    apiPopular.removeFav(idd);
+                                    AnimatedSnackBar.material(
+                                            'Eliminada de Favoritos',
+                                            type: AnimatedSnackBarType.error)
+                                        .show(context);
+                                    Future.delayed(const Duration(seconds: 3));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const FavMovie())));
+                                  }
+                                }),
                               },
                           icon: const Icon(
                             Icons.heart_broken,

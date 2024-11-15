@@ -40,10 +40,10 @@ class _PopularScreenState extends State<PopularScreen> {
       body: FutureBuilder(
           future: flag.getupdatePosts() == true
               ? favoriteCount == 0
-                  ? agendaDB!.GETALLPOPULAR()
+                  ? /*agendaDB!.GETALLPOPULAR()*/apiPopular!.getAllFav()
                   : apiPopular!.getAllPopular()
               : favoriteCount == 1
-                  ? agendaDB!.GETALLPOPULAR()
+                  ? /*agendaDB!.GETALLPOPULAR()*/apiPopular!.getAllFav()
                   : apiPopular!.getAllPopular(),
           builder: (context, AsyncSnapshot<List<PopularModel>?> snapshot) {
             if (snapshot.data != null) {

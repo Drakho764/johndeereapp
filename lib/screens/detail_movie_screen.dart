@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:johndeereapp/screens/popular_screen.dart';
 import 'package:johndeereapp/screens/profile/widgets/custom_bottom_bar.dart';
+import 'package:johndeereapp/widgets/cardPeli.dart';
 import 'package:provider/provider.dart';
 import 'package:johndeereapp/database/agendadb.dart';
 import 'package:johndeereapp/models/actor_model.dart';
@@ -83,46 +84,12 @@ class __DetailMovieScreenState extends State<DetailMovieScreen> {
                           onPressed: () => {
                                 setState(() {
                                   int? idd = widget.model.id;
-                                  if (agendaDB!.GETPOPULAR(idd!) == true) {
-                                    iconColor = Colors.white;
-                                    agendaDB!
-                                        .DELETEMOVIE('tblPopular', idd)
-                                        .then((value) {
-                                      var msj = (value > 0)
-                                          ? 'Eliminada de Favoritos!'
-                                          : 'Ocurrió un error';
-                                      var snackbar =
-                                          SnackBar(content: Text(msj));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackbar);
-                                    });
+                                  if (idd! == true) {
+                                    
                                   } else {
                                     iconColor = Colors.red;
-                                    agendaDB!.DELETEMOVIE('tblPopular', idd);
-                                    agendaDB!.INSERT('tblPopular', {
-                                      'backdrop_path':
-                                          widget.model.backdropPath,
-                                      'id': widget.model.id,
-                                      'original_language':
-                                          widget.model.originalLanguage,
-                                      'original_title':
-                                          widget.model.originalTitle,
-                                      'overview': widget.model.overview,
-                                      'popularity': widget.model.popularity,
-                                      'poster_path': widget.model.posterPath,
-                                      'release_date': widget.model.releaseDate,
-                                      'title': widget.model.title,
-                                      'vote_average': widget.model.voteAverage,
-                                      'vote_count': widget.model.voteCount
-                                    }).then((value) {
-                                      var msj = (value > 0)
-                                          ? 'Agregada a Favoritos!'
-                                          : 'Ocurrió un error';
-                                      var snackbar =
-                                          AnimatedSnackBar.material(msj,type: AnimatedSnackBarType.success,).show(context);
-                                     /* ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackbar);*/
-                                    });
+                                    apiPopular.addFav(idd);
+                                    AnimatedSnackBar.material('Agregada de Favoritos', type: AnimatedSnackBarType.success).show(context);
                                   }
                                 })
                               },
@@ -251,7 +218,45 @@ class __DetailMovieScreenState extends State<DetailMovieScreen> {
                           }
                         },
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Peliculas Similares',
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                        const SizedBox(height: 15),
+                      FutureBuilder<List<PopularModel>?>(
+                        future: apiPopular.SimilarMovies(widget.model.id!),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData && snapshot.data != null) {
+                            return SizedBox(
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) {
+                                  PopularModel peli = snapshot.data![index];
+                                  return CardPeli(
+                                    name: peli.title.toString(),
+                                    photo: peli.posterPath != null
+                                        ? 'https://image.tmdb.org/t/p/original${peli.posterPath}'
+                                        : 'https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg',
+                                    character: peli.popularity.toString(),
+                                  );
+                                },
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      ),
+                    SizedBox(height: 30,)
+                   
                     ],
                   ),
                 ),

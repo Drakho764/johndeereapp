@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart'; //1
+import 'package:johndeereapp/network/api_popular.dart';
+import 'package:johndeereapp/screens/detail_movie_screen.dart';
 import 'package:johndeereapp/screens/popular_screen.dart';
 import 'package:johndeereapp/screens/profile/widgets/custom_bottom_bar.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +25,7 @@ class _FavMovie extends State<FavMovie> {
     super.initState();
     agendaDB = AgendaDB();
   }
-
+final ApiPopular apiPopular = ApiPopular();
   @override
   Widget build(BuildContext context) {
     TestProvider flag = Provider.of<TestProvider>(context);
@@ -34,7 +36,7 @@ class _FavMovie extends State<FavMovie> {
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder(
-          future: agendaDB!.GETALLPOPULAR(),
+          future: apiPopular.getAllFav(),
           builder: (context, AsyncSnapshot<List<PopularModel>?> snapshot) {
             if (snapshot.data != null) {
               if (snapshot.data!.isNotEmpty) {
